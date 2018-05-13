@@ -53,6 +53,36 @@ unittest3: unittest3.c dominion.o rngs.o
 unittest4: unittest4.c dominion.o rngs.o
 	gcc -o unittest4 -g unittest4.c dominion.o rngs.o $(CFLAGS)
 
+randomtestcard1: randomtestcard1.c dominion.o rngs.o interface.o
+	gcc -o randomtestcard1 -g randomtestcard1.c dominion.o rngs.o interface.o $(CFLAGS)
+
+randomtestcard2: randomtestcard2.c dominion.o rngs.o interface.o
+	gcc -o randomtestcard2 -g randomtestcard2.c dominion.o rngs.o interface.o $(CFLAGS)
+
+randomtestadventurer: randomtestadventurer.c dominion.o rngs.o interface.o
+	gcc -o randomtestadventurer -g randomtestadventurer.c dominion.o rngs.o interface.o $(CFLAGS)
+
+randomtestcard1.out: randomtestcard1
+	./randomtestcard1 &> randomtestcard1.out
+	gcov -b randomtestcard1.c >> randomtestcard1.out
+	cat randomtestcard1.c.gcov >> randomtestcard1.out
+	gcov -f -b dominion.c >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard1.out
+
+randomtestcard2.out: randomtestcard2
+	./randomtestcard2 &> randomtestcard2.out
+	gcov -b randomtestcard2.c >> randomtestcard2.out
+	cat randomtestcard2.c.gcov >> randomtestcard2.out
+	gcov -f -b dominion.c >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestcard2.out
+
+randomtestadventurer.out: randomtestadventurer
+	./randomtestadventurer &> randomtestadventurer.out
+	gcov -b randomtestadventurer.c >> randomtestadventurer.out
+	cat randomtestadventurer.c.gcov >> randomtestadventurer.out
+	gcov -f -b dominion.c >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestadventurer.out
+
 unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4
 	./unittest1 &> unittestresults.out
 	./unittest2 >> unittestresults.out
@@ -87,4 +117,4 @@ player: player.c interface.o
 all: playdom player
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest2 unittest1 unittest4 unittest3 cardtest1 cardtest2 cardtest3 cardtest4
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest2 unittest1 unittest4 unittest3 cardtest1 cardtest2 cardtest3 cardtest4 randomtestadventurer randomtestcard1 randomtestcard2
