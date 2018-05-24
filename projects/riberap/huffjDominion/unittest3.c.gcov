@@ -1,0 +1,86 @@
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <string.h>
+        -:    4:#include <stdio.h>
+        -:    5:#include <assert.h>
+        -:    6:#include "rngs.h"
+        -:    7:#include <stdlib.h>
+        -:    8:
+        -:    9:#define MAX_CARD_NUMBER 27
+        -:   10:
+function main called 1 returned 100% blocks executed 61%
+        -:   11:int main() {
+        1:   12:    printf("~~testing function getCost~~\n");
+        1:   13:    int testsPassed, testsFailed = 0;
+        -:   14:    // generate random card numbers to be in deck
+        -:   15:    // pass it a card number that doesn't exist
+        -:   16:
+        -:   17:    int cardCost;
+        1:   18:    int cardCosts[27] = {0, 2, 5, 8, 0, 3, 6, 6, 5, 4, 4, 5, 4, 4, 3, 4, 3, 5, 3, 5, 3, 4, 2, 5, 4, 4, 4};
+        -:   19:
+        -:   20:    // test a negative number
+        -:   21:    // can't have negative index in enum
+        1:   22:    printf("Checking for a card at a negative index\n");
+        1:   23:    printf("Expected return value: -1\n");
+        1:   24:    cardCost = getCost(-5);
+        -:   25:
+        2:   26:    assert(cardCost == -1);
+branch  0 taken 0%
+branch  1 taken 100%
+        1:   27:    printf("Actual return value: %d\n", cardCost);
+        1:   28:    printf("Test passed...\n");
+        -:   29:
+        -:   30:
+        -:   31:    // checking for number higher than max enum index
+        1:   32:    printf("Checking for a card at a higher index than exists\n");
+        1:   33:    printf("Expected return value: -1\n");
+        1:   34:    cardCost = getCost(30);
+        2:   35:    assert(cardCost == -1);
+branch  0 taken 0%
+branch  1 taken 100%
+        1:   36:    printf("Actual return value: %d\n", cardCost);
+        1:   37:    printf("Test passed...\n");
+        -:   38:
+        1:   39:    printf("Checking for a card at first index that exists\n");
+        1:   40:    printf("Expected return value: 0\n");
+        1:   41:    cardCost = getCost(0);
+        2:   42:    assert(cardCost == 0);
+branch  0 taken 0%
+branch  1 taken 100%
+        1:   43:    printf("Actual return value: %d\n", cardCost);
+        1:   44:    printf("Test passed...\n");
+        -:   45:
+        1:   46:    printf("Checking for a card at first index that exists\n");
+        1:   47:    printf("Expected return value: 0\n");
+        1:   48:    cardCost = getCost(26);
+        2:   49:    assert(cardCost == cardCosts[26]);
+branch  0 taken 0%
+branch  1 taken 100%
+        1:   50:    printf("Actual return value: %d\n", cardCost);
+        1:   51:    printf("Test passed...\n");
+        -:   52:
+        1:   53:    srand(time(NULL));
+        -:   54:    int randomNum;
+        -:   55:    int i;
+       22:   56:    for (i = 0; i < 10; i++) {
+branch  0 taken 91%
+branch  1 taken 9%
+       10:   57:      randomNum = rand() % 28;
+       10:   58:      printf("Random card selected corresponding to enum CARD...%d\n", randomNum);
+       10:   59:      printf("Testing the randomly selected card against its expected cost\n");
+       10:   60:      printf("Expected cost returned: %d\n", cardCosts[randomNum]);
+       10:   61:      cardCost = getCost(randomNum);
+       20:   62:      assert(cardCost == cardCosts[randomNum]);
+branch  0 taken 0%
+branch  1 taken 100%
+       10:   63:      printf("Actual cost returned: %d\n", cardCost);
+       10:   64:      printf("Test passed...\n");
+       10:   65:    }
+        -:   66:
+        1:   67:    return 0;
+        -:   68:}

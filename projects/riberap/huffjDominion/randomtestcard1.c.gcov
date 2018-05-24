@@ -1,0 +1,89 @@
+        -:    0:Source:randomtestcard1.c
+        -:    0:Graph:randomtestcard1.gcno
+        -:    0:Data:randomtestcard1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <string.h>
+        -:    4:#include <stdio.h>
+        -:    5:#include <assert.h>
+        -:    6:#include "rngs.h"
+        -:    7:#include <stdlib.h>
+        -:    8:#include <math.h>
+        -:    9:#include <time.h>
+        -:   10:
+        -:   11:#define TOTAL_TESTS 5000
+        -:   12:
+function assertTrue called 10000 returned 100% blocks executed 100%
+        -:   13:int assertTrue(int statement) {
+    10000:   14:    if (statement == 1) {
+branch  0 taken 50%
+branch  1 taken 50%
+     4951:   15:        return 1;
+        -:   16:    } else {
+     5049:   17:        return 0;
+        -:   18:    }
+    10000:   19:}
+        -:   20:
+function main called 1 returned 100% blocks executed 100%
+        -:   21:int main() {
+        -:   22:
+        1:   23:  srand(time(NULL));
+        1:   24:  int passesHand = 0;
+        1:   25:  int passesDeck = 0;
+        1:   26:  int i, result = 0, numPlayers = 0, currentPlayer = 0;
+        1:   27:  int handCount = 0, deckCount = 0, playerCoins = 0;
+        1:   28:  int handPos = 0;
+        1:   29:  int bonus = 0;
+        -:   30:  int seed;
+        -:   31:  //int choice1, choice2, choice3 = 0; not used for smithy
+        1:   32:  int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,sea_hag, great_hall, smithy, council_room};
+        -:   33:  struct gameState gs;
+    10002:   34:  for (i = 0; i < TOTAL_TESTS; i++) {
+branch  0 taken 99%
+branch  1 taken 1%
+     5000:   35:    seed = rand();
+        -:   36:    // need btwn 2 - 4 players to play
+     5000:   37:    numPlayers = rand() % 3 + 2;
+        -:   38:
+     5000:   39:    initializeGame(numPlayers, k, seed, &gs);
+        -:   40:
+        -:   41:    //Initiate valid state variables
+     5000:   42:    gs.deckCount[currentPlayer] = rand() % MAX_DECK; // use max sizes to assign random values
+     5000:   43:    gs.discardCount[currentPlayer] = rand() % MAX_DECK;
+     5000:   44:    gs.handCount[currentPlayer] = rand() % MAX_HAND;
+        -:   45:
+     5000:   46:    playerCoins = gs.coins;
+        -:   47:
+     5000:   48:    int handBefore = 0, coins = 0;
+     5000:   49:    handBefore = numHandCards(&gs);
+     5000:   50:    int deckBefore = 0, deckAfter = 0;
+     5000:   51:    deckBefore = gs.deckCount[0];
+     5000:   52:    coins = playerCoins;
+        -:   53:
+     5000:   54:		gs.hand[currentPlayer][0] = smithy;
+        -:   55:
+     5000:   56:    int returnValue = 0;
+     5000:   57:    returnValue = cardEffect(smithy, 0, 0, 0, &gs, handPos, &bonus);
+        -:   58:
+     5000:   59:    int handAfter = 0;
+     5000:   60:    handAfter = numHandCards(&gs);
+     5000:   61:    deckAfter = gs.deckCount[0];
+        -:   62:    // never going to pass bc of the bug i introduced
+        -:   63:
+        -:   64:    // + 2
+     5000:   65:    passesHand += assertTrue((handAfter - handBefore) == 2);
+        -:   66:
+        -:   67:    // + 4
+     5000:   68:    passesDeck += assertTrue((deckBefore - deckAfter) == 4);
+        -:   69:    // didn't introduce bug here...is discard not working properly?
+        -:   70:    // potential unexpected bug here.
+        -:   71:
+        -:   72:
+     5000:   73:  }
+        1:   74:  printf("total hand passed tests: %d\n", passesHand);
+        1:   75:  printf("total deck passed tests: %d\n", passesDeck);
+        -:   76:  //printf("total fails: %d\n", fails);
+        1:   77:  return 0;
+        -:   78:}

@@ -1,0 +1,70 @@
+        -:    0:Source:unittest2.c
+        -:    0:Graph:unittest2.gcno
+        -:    0:Data:unittest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <string.h>
+        -:    4:#include <stdio.h>
+        -:    5:#include <assert.h>
+        -:    6:#include "rngs.h"
+        -:    7:#include <stdlib.h>
+        -:    8:
+function main called 1 returned 100% blocks executed 54%
+        -:    9:int main() {
+        1:   10:    printf("~~testing function whoseTurn~~");
+        1:   11:    int testsPassed, testsFailed = 0;
+        -:   12:    struct gameState gs1, gs2, gs3, gs4, gs5, testState;
+        -:   13:    int numPlayers;
+        1:   14:    int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,sea_hag, tribute, smithy, council_room};
+        1:   15:    int seed = 100;
+        -:   16:
+        -:   17:    //initializeGame(numPlayers, k, seed, &gs);
+        -:   18:
+        -:   19:    //printf("%d\n", whoseTurn(&gs));
+        -:   20:
+        -:   21:    // always return an integer
+        -:   22:    // range btwn 2 - 4
+        -:   23:    // test for 1 player. test for 5 players
+        -:   24:    // test 1, 4, 0, 5
+        -:   25:
+        1:   26:    printf("Testing Edge Cases for Number of Players\n");
+        1:   27:    printf("Testing 0 Players\n");
+        1:   28:    numPlayers = 0;
+        1:   29:    int gameCreated = initializeGame(numPlayers, k, seed, &gs1);
+        1:   30:    printf("Return value of initializeGame...%d", gameCreated);
+        2:   31:    assert(gameCreated == -1);
+branch  0 taken 0%
+branch  1 taken 100%
+        1:   32:    printf("gameCreated == -1 passed\n");
+        1:   33:    numPlayers = 1;
+        1:   34:    int gameCreated2 = initializeGame(numPlayers, k, seed, &gs2);
+        2:   35:    assert(gameCreated2 == -1);
+branch  0 taken 0%
+branch  1 taken 100%
+        1:   36:    printf("gameCreated with 1 player not possible - test passed\n");
+        1:   37:    numPlayers = 2;
+        1:   38:    int gameCreated3 = initializeGame(numPlayers, k, seed, &gs3);
+        2:   39:    assert(gameCreated3 == 0);
+branch  0 taken 0%
+branch  1 taken 100%
+        1:   40:    printf("gameCreated with 1 player possible - test passed\n");
+        1:   41:    gs3.whoseTurn = 1;
+        -:   42:    int pTurn;
+        1:   43:    pTurn = whoseTurn(&gs3);
+        2:   44:    assert(pTurn == 1);
+branch  0 taken 0%
+branch  1 taken 100%
+        1:   45:    printf("Player 1's turn...test passed\n");
+        1:   46:    gs3.whoseTurn = 0;
+        1:   47:    pTurn = whoseTurn(&gs3);
+        2:   48:    assert(pTurn == 0);
+branch  0 taken 0%
+branch  1 taken 100%
+        1:   49:    printf("Player 0's turn...test passed\n");
+        -:   50:
+        -:   51:
+        -:   52:
+        1:   53:    return 0;
+        -:   54:}

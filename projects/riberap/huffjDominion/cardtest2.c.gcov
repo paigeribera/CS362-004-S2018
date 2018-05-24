@@ -1,0 +1,57 @@
+        -:    0:Source:cardtest2.c
+        -:    0:Graph:cardtest2.gcno
+        -:    0:Data:cardtest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <string.h>
+        -:    4:#include <stdio.h>
+        -:    5:#include <assert.h>
+        -:    6:#include "rngs.h"
+        -:    7:#include <stdlib.h>
+        -:    8:#include <math.h>
+        -:    9:
+function assertTrue called 2 returned 100% blocks executed 80%
+        -:   10:void assertTrue(int statement) {
+        2:   11:    if (statement == 1) {
+branch  0 taken 0%
+branch  1 taken 100%
+    #####:   12:        printf("Test passed\n");
+    #####:   13:    } else {
+        2:   14:        printf("Test failed\n");
+        -:   15:    }
+        2:   16:}
+        -:   17:
+function main called 1 returned 100% blocks executed 100%
+        -:   18:int main() {
+        1:   19:  printf("~~testing smithy card~~\n");
+        1:   20:  int testsPassed, testsFailed = 0;
+        -:   21:  struct gameState gs;
+        1:   22:  int numPlayers = 2;
+        1:   23:  int seed = 100;
+        1:   24:  int handPos = 0;
+        1:   25:  int bonus = 0;
+        1:   26:  int choice1, choice2, choice3 = 0;
+        1:   27:  int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,sea_hag, tribute, smithy, council_room};
+        -:   28:
+        1:   29:  initializeGame(numPlayers, k, seed, &gs);
+        -:   30:
+        1:   31:  int handCountBeforeCard = numHandCards(&gs);
+        1:   32:  int deckCountBeforeCard = gs.deckCount[0];
+        1:   33:  int result = cardEffect(smithy, choice1, choice2, choice3, &gs, handPos, &bonus);
+        1:   34:  int handCountAfterCard = numHandCards(&gs);
+        1:   35:  int deckCountAfterCard = gs.deckCount[0];
+        -:   36:
+        -:   37:  // expected behavior: 3 cards drawn from deck...
+        -:   38:  // but then player played 1 card. so +2 CARDS
+        -:   39:  // for player and deck +4 cards
+        1:   40:  printf("testing that hand has +2 cards\n");
+        1:   41:  assertTrue(handCountAfterCard - handCountBeforeCard == 2);
+        1:   42:  printf("testing that deck has +4 cards\n");
+        1:   43:  assertTrue(deckCountAfterCard - deckCountBeforeCard == 4);
+        -:   44:  // above doesn't account for the discarded card
+        -:   45:
+        -:   46:
+        1:   47:  return 0;
+        -:   48:}
