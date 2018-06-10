@@ -166,7 +166,7 @@ public void testYourThirdPartition(){
 	      // StringBuilder testBuffer = new StringBuilder();
 	   		String url = "http://www.google.com";
 	   		int total=0; int fail=0;
-	   		String [] testUrlPath = {"/test1/","/.../"};
+	   		String [] testUrlPath = {"/test1/","/../"};
 	   		for(int i=0;i< testUrlPath.length;i++){
 	   			if(i%2==0){
 	   			//check even, valid, false elements… should return true
