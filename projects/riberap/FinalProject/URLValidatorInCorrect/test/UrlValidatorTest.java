@@ -8,7 +8,8 @@ import junit.framework.TestCase;
 
 
 public class UrlValidatorTest extends TestCase {
-
+	 private final boolean printStatus = true;
+	 private final boolean printIndex = false;
 
    public UrlValidatorTest(String testName) {
       super(testName);
@@ -108,7 +109,7 @@ public class UrlValidatorTest extends TestCase {
 		   						//boolean	expected=false;
 	   						fail++;
 	   					}
-	   				}else{
+	   				}else{//check odd, invalid, scheme elements… should return false
 	   					if(urlVal.isValid(TestUrlScheme[i] + url)){
 	   						if(printStatus){
 	   						System.out.print("Expected: false" +"\t");
@@ -133,23 +134,22 @@ public class UrlValidatorTest extends TestCase {
 	   		String [] testUrlAuthority = {"google.com",""};
 	   		for(int i=0;i< testUrlAuthority.length;i++){
 	   			if(i%2==0){
-	   			//check even, valid, scheme elements… should return true
+	   			//check even, valid, Authority elements… should return true
 	   					if(!urlVal.isValid(url+ testUrlAuthority[i])){
 		   						if(printStatus){
 		   						System.out.print("Expected: true" +"\t");
 		   						System.out.println("result: " +urlVal.isValid(url+testUrlAuthority[i]));
 		   						}
-		   						//boolean	expected=false;
+		   					
 	   						fail++;
 	   					}
-	   			}else{
+	   			}else{//check odd, invalid, Authority elements… should return false
 	   				if(urlVal.isValid(url+ testUrlAuthority[i])){
    						if(printStatus){
    						System.out.print("Expected: false" +"\t");
    						System.out.println("result: " +urlVal.isValid(testUrlAuthority[i] + url));
    						}
-   						//boolean	expected=false;
-   						//assertEquals(TestUrlScheme[i] + url,expected,urlVal.isValid(TestUrlScheme[i] + url));
+   						
 						fail++;}
 	   			}
 	   			total++;
@@ -169,23 +169,23 @@ public void testYourThirdPartition(){
 	   		String [] testUrlPath = {"/test1/","/.../"};
 	   		for(int i=0;i< testUrlPath.length;i++){
 	   			if(i%2==0){
-	   			//check even, valid, scheme elements… should return true
+	   			//check even, valid, false elements… should return true
 	   					if(!urlVal.isValid(url+ testUrlPath[i])){
-		   						//if(printStatus){
+		   						if(printStatus){
 		   						System.out.print("Expected: true" +"\t");
 		   						System.out.println("result: " +urlVal.isValid(url+testUrlPath[i]));
-		   						//}
-		   						//boolean	expected=false;
+		   						}
+		   						
 	   						fail++;
 	   					}
-	   			}if(i%2!=0){
+	   			}if(i%2!=0){ 
+					//check odd, invalid, path elements.... return return false
 	   				if(urlVal.isValid(url+ testUrlPath[i])){
-					//	if(printStatus){
+						if(printStatus){
 						System.out.print("Expected: false" +"\t");
 						System.out.println("result: " +urlVal.isValid(url+testUrlPath[i]));
-					//	}
-						//boolean	expected=false;
-						//assertEquals(TestUrlScheme[i] + url,expected,urlVal.isValid(TestUrlScheme[i] + url));
+						}
+						
 						fail++;}
 	   			}
 	   			total++;
