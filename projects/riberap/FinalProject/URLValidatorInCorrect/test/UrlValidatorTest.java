@@ -91,8 +91,37 @@ public class UrlValidatorTest extends TestCase {
 
    public void testYourFirstPartition()
    {
-	 //You can use this function to implement your First Partition testing
-
+	 	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	      // StringBuilder testBuffer = new StringBuilder();
+	   		String url = "www.go.com";
+	   		int total=0; int fail=0;
+	   		String [] TestUrlScheme = {"http://","http:/"};
+	   			
+	   			for(int i=0;i< TestUrlScheme.length;i++){
+	   			//check even, valid, scheme elements… should return true
+	   				if(i%2==0){
+	   					if(!urlVal.isValid(TestUrlScheme[i] + url)){
+		   						if(printStatus){
+		   						System.out.print("Expected: true" +"\t");
+		   						System.out.println("result: " +urlVal.isValid(TestUrlScheme[i] + url));
+		   						}
+		   						//boolean	expected=false;
+	   						fail++;
+	   					}
+	   				}else{
+	   					if(urlVal.isValid(TestUrlScheme[i] + url)){
+	   						if(printStatus){
+	   						System.out.print("Expected: false" +"\t");
+	   						System.out.println("result: " +urlVal.isValid(TestUrlScheme[i] + url));
+	   						}
+	   						//boolean	expected=false;
+	   						//assertEquals(TestUrlScheme[i] + url,expected,urlVal.isValid(TestUrlScheme[i] + url));
+							fail++;}
+	   			}
+	   				total++;
+	   			System.out.println("Scheme Tests:");
+	   			System.out.println("Total:"+total+"--Fail:"+fail);
+	   			}
    }
 
    public void testYourSecondPartition(){
