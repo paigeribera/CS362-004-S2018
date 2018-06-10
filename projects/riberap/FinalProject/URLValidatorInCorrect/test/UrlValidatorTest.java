@@ -119,9 +119,10 @@ public class UrlValidatorTest extends TestCase {
 							fail++;}
 	   			}
 	   				total++;
-	   			System.out.println("Scheme Tests:");
-	   			System.out.println("Total:"+total+"--Fail:"+fail);
+	   			
 	   			}
+	  			 System.out.println("*******Scheme Tests:");
+	   			System.out.println("Total:"+total+"--Fail:"+fail);
    }
 
    public void testYourSecondPartition(){
@@ -152,12 +153,47 @@ public class UrlValidatorTest extends TestCase {
 						fail++;}
 	   			}
 	   			total++;
-	   			System.out.println("Authority Tests:");
-	   			System.out.println("Total:"+total+"--Fail:"+fail);
+	   			
 	   		}
+	  			 System.out.println("*****Authority Tests:");
+	   			System.out.println("Total:"+total+"--Fail:"+fail);
 
    }
-   //You need to create more test cases for your Partitions if you need to
+	
+	
+public void testYourThirdPartition(){
+	   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	      // StringBuilder testBuffer = new StringBuilder();
+	   		String url = "http://www.google.com";
+	   		int total=0; int fail=0;
+	   		String [] testUrlPath = {"/test1/","/.../"};
+	   		for(int i=0;i< testUrlPath.length;i++){
+	   			if(i%2==0){
+	   			//check even, valid, scheme elements… should return true
+	   					if(!urlVal.isValid(url+ testUrlPath[i])){
+		   						//if(printStatus){
+		   						System.out.print("Expected: true" +"\t");
+		   						System.out.println("result: " +urlVal.isValid(url+testUrlPath[i]));
+		   						//}
+		   						//boolean	expected=false;
+	   						fail++;
+	   					}
+	   			}if(i%2!=0){
+	   				if(urlVal.isValid(url+ testUrlPath[i])){
+					//	if(printStatus){
+						System.out.print("Expected: false" +"\t");
+						System.out.println("result: " +urlVal.isValid(url+testUrlPath[i]));
+					//	}
+						//boolean	expected=false;
+						//assertEquals(TestUrlScheme[i] + url,expected,urlVal.isValid(TestUrlScheme[i] + url));
+						fail++;}
+	   			}
+	   			total++;
+	   		
+	   		}
+	   		System.out.println("********Path Tests:");
+   			System.out.println("total:"+total+"--Fail:"+fail);	
+}
 
    public void testIsValid()
    {
