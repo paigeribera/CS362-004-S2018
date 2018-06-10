@@ -34,58 +34,58 @@ public class UrlValidatorTest extends TestCase {
     }
     totalTests++;
 
-    if (urlVal.isValid("ftp://go.com") {
+    if (urlVal.isValid("ftp://go.com")) {
         passTests++;
     } else {
         failTests++;
     }
     totalTests++;
 
-    if (urlVal.isValid("h3t://go.au") {
+    if (urlVal.isValid("h3t://go.au")) {
         passTests++;
     } else {
         failTests++;
     }
     totalTests++;
 
-    if (urlVal.isValid("://256.256.256.256") {
+    if (urlVal.isValid("://256.256.256.256")) {
         passTests++;
     } else {
         failTests++;
     }
     totalTests++;
 
-    if (urlVal.isValid("http:1.2.3") {
+    if (urlVal.isValid("http:1.2.3")) {
         passTests++;
     } else {
         failTests++;
     }
     totalTests++;
 
-    if (urlVal.isValid("3ht://go.com") {
+    if (urlVal.isValid("3ht://go.com")) {
         passTests++;
     } else {
         failTests++;
     }
     totalTests++;
 
-    if (urlVal.isValid("http://255.255.255.255") {
-        passTests;
-    } else {
-        failTests++;
-    }
-    totalTests++;
-
-    if (urlVal.isValid("go.1aa") {
+    if (urlVal.isValid("http://255.255.255.255")) {
         passTests++;
     } else {
         failTests++;
     }
     totalTests++;
 
-    System.out.println("Total tests run...%d", totalTests);
-    System.out.println("Total tests failed...%d", failTests);
-    System.out.println("Total tests passed...%d", passTests);
+    if (urlVal.isValid("go.1aa")) {
+        passTests++;
+    } else {
+        failTests++;
+    }
+    totalTests++;
+
+    System.out.printf("Total tests run...%d", totalTests);
+    System.out.printf("Total tests failed...%d", failTests);
+    System.out.printf("Total tests passed...%d", passTests);
    }
 
 
