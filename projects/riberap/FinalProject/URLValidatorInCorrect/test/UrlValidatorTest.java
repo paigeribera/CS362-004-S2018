@@ -125,7 +125,36 @@ public class UrlValidatorTest extends TestCase {
    }
 
    public void testYourSecondPartition(){
-		 //You can use this function to implement your Second Partition testing
+		   UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	      // StringBuilder testBuffer = new StringBuilder();
+	   		String url = "http://";
+	   		int total=0; int fail=0;
+	   		String [] testUrlAuthority = {"google.com",""};
+	   		for(int i=0;i< testUrlAuthority.length;i++){
+	   			if(i%2==0){
+	   			//check even, valid, scheme elements… should return true
+	   					if(!urlVal.isValid(url+ testUrlAuthority[i])){
+		   						if(printStatus){
+		   						System.out.print("Expected: true" +"\t");
+		   						System.out.println("result: " +urlVal.isValid(url+testUrlAuthority[i]));
+		   						}
+		   						//boolean	expected=false;
+	   						fail++;
+	   					}
+	   			}else{
+	   				if(urlVal.isValid(url+ testUrlAuthority[i])){
+   						if(printStatus){
+   						System.out.print("Expected: false" +"\t");
+   						System.out.println("result: " +urlVal.isValid(testUrlAuthority[i] + url));
+   						}
+   						//boolean	expected=false;
+   						//assertEquals(TestUrlScheme[i] + url,expected,urlVal.isValid(TestUrlScheme[i] + url));
+						fail++;}
+	   			}
+	   			total++;
+	   			System.out.println("Authority Tests:");
+	   			System.out.println("Total:"+total+"--Fail:"+fail);
+	   		}
 
    }
    //You need to create more test cases for your Partitions if you need to
